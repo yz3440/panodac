@@ -238,6 +238,11 @@ Similar commands apply to outdoor model training. There are various options avai
 | metric3d-outdoor-resnet101    | scripts/train_persp.py         | [relative path](configs/train/ddad+lyft/ddad+lyft_r101.json)                                       | IDisc or CNNDepth  |
 | metric3d-outdoor-swinl        | scripts/train_persp.py         | [relative path](configs/train/ddad+lyft/ddad+lyft_swinl_s2.json)                                   | IDisc or CNNDepth  |
 
+## No camera parameters available?
+
+State-of-the-art deep learning auto-calibration methods can rescue this situation. Consider using them to estimate the distorted camera parameters before applying our DAC.
+- [Awesome-Deep-Camera-Calibration](https://github.com/KangLiao929/Awesome-Deep-Camera-Calibration)
+- [OrdinalDistortion](https://github.com/KangLiao929/OrdinalDistortion)
 
 ## Acknowledgements
 We thank the authors of the following awesome codebases:
