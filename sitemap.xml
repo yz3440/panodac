@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://yz3440.github.io/panodac/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://yz3440.github.io/panodac/examples/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://yz3440.github.io/panodac/api/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://yz3440.github.io/panodac/api/hub/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+    <url>
+         <loc>https://yz3440.github.io/panodac/api/predictor/</loc>
+         <lastmod>2026-01-21</lastmod>
+    </url>
+</urlset>
