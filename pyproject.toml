@@ -41,6 +41,12 @@ dev = [
     "pytest>=7.0.0",
     "ruff>=0.1.0",
 ]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-terminal>=4.6.0",
+    "mkdocstrings[python]>=0.24.0",
+    "pymdown-extensions>=10.0.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/yuliangguo/depth_any_camera"
