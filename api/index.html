@@ -237,6 +237,22 @@
         
             <a class="
 
+    terminal-mkdocs-side-nav-item" href="seam_blending/">Seam Blending</a>
+        
+    
+    </li>
+            
+        
+            
+            
+
+             
+                <li class="terminal-mkdocs-side-nav-li-ul-li">
+    
+        
+        
+            <a class="
+
     terminal-mkdocs-side-nav-item" href="hub/">Hub</a>
         
     
@@ -254,7 +270,7 @@
 <nav>
     <ul>
         <li><a href="#api-reference">API Reference</a></li>
-        <li><a href="#top-level-api">Top-Level API</a></li><li><a href="#panodac.predict"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;predict</a></li><li><a href="#panodac.list_models"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;list_models</a></li><li><a href="#panodac.get_device"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_device</a></li><li><a href="#module-structure">Module Structure</a></li><li><a href="#submodules">Submodules</a></li>
+        <li><a href="#top-level-api">Top-Level API</a></li><li><a href="#panodac.predict"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;predict</a></li><li><a href="#panodac.list_models"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;list_models</a></li><li><a href="#panodac.get_device"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_device</a></li><li><a href="#panorama-seam-correction">Panorama Seam Correction</a></li><li><a href="#panodac.seam_blending.fix_panorama_seam"><code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;fix_panorama_seam</a></li><li><a href="#module-structure">Module Structure</a></li><li><a href="#submodules">Submodules</a></li>
     </ul>
 </nav>
 </aside>
@@ -273,7 +289,7 @@
 
 
 <a href="#panodac.predict" class="headerlink" title="Permanent link">#</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">predict</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">Image</span><span class="p">],</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;outdoor-resnet101&#39;</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">predict</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">Image</span><span class="p">],</span> <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;outdoor-resnet101&#39;</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fix_panorama_seam</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 </code></pre></div>
 
     <div class="doc doc-contents first">
@@ -347,6 +363,23 @@ Models are automatically downloaded from HuggingFace on first use.</p>
             </td>
             <td>
                   <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>fix_panorama_seam</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True (default), apply Poisson blending to correct
+left-right seam artifacts in ERP panorama depth outputs.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
             </td>
           </tr>
       </tbody>
@@ -432,48 +465,58 @@ depth = panodac.predict("panorama.jpg", model="outdoor-swinl")</p>
 <span class="normal"><a href="#__codelineno-0-80">80</a></span>
 <span class="normal"><a href="#__codelineno-0-81">81</a></span>
 <span class="normal"><a href="#__codelineno-0-82">82</a></span>
-<span class="normal"><a href="#__codelineno-0-83">83</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
+<span class="normal"><a href="#__codelineno-0-83">83</a></span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#__codelineno-0-85">85</a></span>
+<span class="normal"><a href="#__codelineno-0-86">86</a></span>
+<span class="normal"><a href="#__codelineno-0-87">87</a></span>
+<span class="normal"><a href="#__codelineno-0-88">88</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>    <span class="n">image</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">],</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;outdoor-resnet101&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>    <span class="n">device</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict metric depth from any camera image.</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Supports perspective, fisheye, and 360° panorama images.</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Models are automatically downloaded from HuggingFace on first use.</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        image: Input image. Can be:</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">            - Path to image file (str or Path)</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            - numpy array (H, W, 3) in RGB format, values 0-255</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            - PIL Image</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        model: Model to use. One of:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            - &#39;outdoor-resnet101&#39; (default): Fast outdoor model</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">            - &#39;outdoor-swinl&#39;: High-quality outdoor model</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            - &#39;indoor-resnet101&#39;: Fast indoor model</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            - &#39;indoor-swinl&#39;: High-quality indoor model</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        device: Device to use (&#39;cuda&#39;, &#39;mps&#39;, &#39;cpu&#39;, or None for auto-detect)</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        Depth map as numpy array (H, W) with metric depth in meters.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a>    <span class="n">fix_panorama_seam</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Predict metric depth from any camera image.</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Supports perspective, fisheye, and 360° panorama images.</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Models are automatically downloaded from HuggingFace on first use.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        image: Input image. Can be:</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            - Path to image file (str or Path)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            - numpy array (H, W, 3) in RGB format, values 0-255</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            - PIL Image</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        model: Model to use. One of:</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">            - &#39;outdoor-resnet101&#39; (default): Fast outdoor model</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            - &#39;outdoor-swinl&#39;: High-quality outdoor model</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            - &#39;indoor-resnet101&#39;: Fast indoor model</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">            - &#39;indoor-swinl&#39;: High-quality indoor model</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        device: Device to use (&#39;cuda&#39;, &#39;mps&#39;, &#39;cpu&#39;, or None for auto-detect)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        fix_panorama_seam: If True (default), apply Poisson blending to correct</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">            left-right seam artifacts in ERP panorama depth outputs.</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    Example:</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        &gt;&gt;&gt; import panodac</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        &gt;&gt;&gt; depth = panodac.predict(&quot;photo.jpg&quot;)</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        &gt;&gt;&gt; depth = panodac.predict(&quot;panorama.jpg&quot;, model=&quot;outdoor-swinl&quot;)</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AVAILABLE_MODELS</span><span class="p">:</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>            <span class="sa">f</span><span class="s2">&quot;Unknown model &#39;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&#39;. Available models: </span><span class="si">{</span><span class="n">AVAILABLE_MODELS</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="p">)</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="c1"># Get or create cached predictor</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">&quot;</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">if</span> <span class="n">cache_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_predictor_cache</span><span class="p">:</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="n">_predictor_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">DepthPredictor</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="n">predictor</span> <span class="o">=</span> <span class="n">_predictor_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">return</span> <span class="n">predictor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        Depth map as numpy array (H, W) with metric depth in meters.</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    Example:</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        &gt;&gt;&gt; import panodac</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        &gt;&gt;&gt; depth = panodac.predict(&quot;photo.jpg&quot;)</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        &gt;&gt;&gt; depth = panodac.predict(&quot;panorama.jpg&quot;, model=&quot;outdoor-swinl&quot;)</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>    <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">AVAILABLE_MODELS</span><span class="p">:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>            <span class="sa">f</span><span class="s2">&quot;Unknown model &#39;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">&#39;. Available models: </span><span class="si">{</span><span class="n">AVAILABLE_MODELS</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="p">)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="c1"># Get or create cached predictor</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">fix_panorama_seam</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="k">if</span> <span class="n">cache_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_predictor_cache</span><span class="p">:</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="n">_predictor_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">DepthPredictor</span><span class="p">(</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">fix_panorama_seam</span><span class="o">=</span><span class="n">fix_panorama_seam</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>        <span class="p">)</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="n">predictor</span> <span class="o">=</span> <span class="n">_predictor_cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">return</span> <span class="n">predictor</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -654,21 +697,131 @@ depth = panodac.predict("panorama.jpg", model="outdoor-swinl")</p>
             </details>
     </div>
 
+</div><h2 id="panorama-seam-correction">Panorama Seam Correction<a class="headerlink" href="#panorama-seam-correction" title="Permanent link">#</a></h2>
+<p>Panoramic (ERP) depth outputs can show a visible seam at the left/right boundary. <code>panodac</code> applies a Poisson-based seam correction by default when a panorama is detected. You can also call the seam blender directly.</p>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="panodac.seam_blending.fix_panorama_seam" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">fix_panorama_seam</span>
+
+
+<a href="#panodac.seam_blending.fix_panorama_seam" class="headerlink" title="Permanent link">#</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fix_panorama_seam</span><span class="p">(</span><span class="n">depth</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">blend_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">anchor_strength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+</code></pre></div>
+
+    <div class="doc doc-contents first">
+
+        <p>Convenience wrapper to fix ERP panorama depth seam artifacts.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>depth</code>
+            </td>
+            <td>
+                  <code><span title="numpy.ndarray">ndarray</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>(H, W) depth map.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>blend_width</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Half-width of the solve band. If None, auto-pick from width.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/panodac/seam_blending.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-242">242</a></span>
+<span class="normal"><a href="#__codelineno-0-243">243</a></span>
+<span class="normal"><a href="#__codelineno-0-244">244</a></span>
+<span class="normal"><a href="#__codelineno-0-245">245</a></span>
+<span class="normal"><a href="#__codelineno-0-246">246</a></span>
+<span class="normal"><a href="#__codelineno-0-247">247</a></span>
+<span class="normal"><a href="#__codelineno-0-248">248</a></span>
+<span class="normal"><a href="#__codelineno-0-249">249</a></span>
+<span class="normal"><a href="#__codelineno-0-250">250</a></span>
+<span class="normal"><a href="#__codelineno-0-251">251</a></span>
+<span class="normal"><a href="#__codelineno-0-252">252</a></span>
+<span class="normal"><a href="#__codelineno-0-253">253</a></span>
+<span class="normal"><a href="#__codelineno-0-254">254</a></span>
+<span class="normal"><a href="#__codelineno-0-255">255</a></span>
+<span class="normal"><a href="#__codelineno-0-256">256</a></span>
+<span class="normal"><a href="#__codelineno-0-257">257</a></span>
+<span class="normal"><a href="#__codelineno-0-258">258</a></span>
+<span class="normal"><a href="#__codelineno-0-259">259</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-242" name="__codelineno-0-242"></a><span class="k">def</span><span class="w"> </span><span class="nf">fix_panorama_seam</span><span class="p">(</span>
+<a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="n">depth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<a id="__codelineno-0-244" name="__codelineno-0-244"></a>    <span class="n">blend_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-245" name="__codelineno-0-245"></a>    <span class="o">*</span><span class="p">,</span>
+<a id="__codelineno-0-246" name="__codelineno-0-246"></a>    <span class="n">anchor_strength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">,</span>
+<a id="__codelineno-0-247" name="__codelineno-0-247"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<a id="__codelineno-0-248" name="__codelineno-0-248"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<a id="__codelineno-0-249" name="__codelineno-0-249"></a><span class="sd">    Convenience wrapper to fix ERP panorama depth seam artifacts.</span>
+<a id="__codelineno-0-250" name="__codelineno-0-250"></a>
+<a id="__codelineno-0-251" name="__codelineno-0-251"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-252" name="__codelineno-0-252"></a><span class="sd">        depth: (H, W) depth map.</span>
+<a id="__codelineno-0-253" name="__codelineno-0-253"></a><span class="sd">        blend_width: Half-width of the solve band. If None, auto-pick from width.</span>
+<a id="__codelineno-0-254" name="__codelineno-0-254"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-255" name="__codelineno-0-255"></a>    <span class="n">depth_f</span> <span class="o">=</span> <span class="n">_as_float32_depth</span><span class="p">(</span><span class="n">depth</span><span class="p">)</span>
+<a id="__codelineno-0-256" name="__codelineno-0-256"></a>    <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">depth_f</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-0-257" name="__codelineno-0-257"></a>    <span class="n">bw</span> <span class="o">=</span> <span class="n">_recommended_blend_width</span><span class="p">(</span><span class="n">W</span><span class="p">)</span> <span class="k">if</span> <span class="n">blend_width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">blend_width</span><span class="p">)</span>
+<a id="__codelineno-0-258" name="__codelineno-0-258"></a>    <span class="n">blender</span> <span class="o">=</span> <span class="n">PoissonSeamBlender</span><span class="p">(</span><span class="n">blend_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">anchor_strength</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">anchor_strength</span><span class="p">))</span>
+<a id="__codelineno-0-259" name="__codelineno-0-259"></a>    <span class="k">return</span> <span class="n">blender</span><span class="o">.</span><span class="n">blend</span><span class="p">(</span><span class="n">depth_f</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
 </div><h2 id="module-structure">Module Structure<a class="headerlink" href="#module-structure" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>panodac/
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── __init__.py       # Top-level API (predict, list_models, get_device)
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── predictor.py      # DepthPredictor class
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── hub.py            # HuggingFace model download
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── utils.py          # Device detection, image loading
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>└── models/           # Neural network architectures
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    ├── idisc.py      # IDisc model (perspective)
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ├── idisc_erp.py  # IDiscERP model (panorama)
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ├── encoder.py    # Image encoder
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    └── backbones/    # ResNet, Swin Transformer
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── seam_blending.py  # Poisson seam correction for ERP panoramas
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── hub.py            # HuggingFace model download
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── utils.py          # Device detection, image loading
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>└── models/           # Neural network architectures
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    ├── idisc.py      # IDisc model (perspective)
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    ├── idisc_erp.py  # IDiscERP model (panorama)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    ├── encoder.py    # Image encoder
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    └── backbones/    # ResNet, Swin Transformer
 </code></pre></div>
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="predictor/">Predictor</a> - <code>DepthPredictor</code> class for advanced usage</li>
+<li><a href="seam_blending/">Seam Blending</a> - Poisson seam correction utilities</li>
 <li><a href="hub/">Hub</a> - Model download utilities</li>
 </ul>
 </section>
