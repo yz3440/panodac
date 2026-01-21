@@ -1,6 +1,6 @@
 [project]
 name = "panodac"
-version = "0.1.0"
+version = "0.1.1"
 description = "Plug-and-play metric depth estimation for any camera (perspective, fisheye, 360°). Based on Depth Any Camera (CVPR 2025)."
 readme = "README.md"
 license = { file = "LICENSE" }

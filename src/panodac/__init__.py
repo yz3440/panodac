@@ -15,7 +15,7 @@ from PIL import Image
 from .predictor import DepthPredictor
 from .utils import get_device
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = ["predict", "list_models", "get_device", "DepthPredictor"]
 
 # Available models
