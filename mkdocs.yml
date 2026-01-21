@@ -53,4 +53,5 @@ nav:
   - API Reference:
       - Overview: api/index.md
       - Predictor: api/predictor.md
+      - Seam Blending: api/seam_blending.md
       - Hub: api/hub.md

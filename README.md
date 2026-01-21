@@ -19,6 +19,20 @@ depth = panodac.predict("photo.jpg")
 # depth is a numpy array (H, W) with metric depth in meters
 ```
 
+## Panorama Seam Blending
+
+ERP panoramas wrap horizontally, but CNN padding can introduce a visible seam at the left/right boundary. By default, `panodac` applies a Poisson-based seam correction when a panorama is detected.
+
+```python
+import panodac
+
+# Default: seam correction enabled for panoramas
+depth = panodac.predict("panorama.jpg")
+
+# Disable seam correction if you want raw output
+depth_raw = panodac.predict("panorama.jpg", fix_panorama_seam=False)
+```
+
 ## Models
 
 | Model               | Use Case | Speed | Quality |

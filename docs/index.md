@@ -90,6 +90,18 @@ depth = panodac.predict(img_np)
 depth = panodac.predict("panorama_360.jpg")
 ```
 
+## Panorama Seam Correction
+
+ERP panoramas wrap horizontally, but CNNs can produce a seam at the left/right boundary. By default, `panodac` applies a Poisson-based seam correction on detected panoramas.
+
+```python
+# Default: seam correction enabled for panoramas
+depth = panodac.predict("panorama_360.jpg")
+
+# Disable seam correction
+depth_raw = panodac.predict("panorama_360.jpg", fix_panorama_seam=False)
+```
+
 ## Next
 
 - [Examples](examples.md) - Working scripts

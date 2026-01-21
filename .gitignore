@@ -73,6 +73,9 @@ wandb/
 # Mac
 .DS_Store
 
+# Documentation
+site/
+
 # Model cache (handled by huggingface_hub)
 *.pt
 *.pth

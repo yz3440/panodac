@@ -18,6 +18,14 @@ Basic depth prediction and visualization.
 --8<-- "examples/panorama_depth.py"
 ```
 
+## panorama_depth_compare_blending.py
+
+Compare ERP panorama depth output **with and without** Poisson seam blending.
+
+```python
+--8<-- "examples/panorama_depth_compare_blending.py"
+```
+
 ## batch_inference.py
 
 Batch process multiple images from the command line.

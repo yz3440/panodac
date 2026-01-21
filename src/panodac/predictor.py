@@ -7,11 +7,10 @@ from typing import Union
 import cv2
 import numpy as np
 import torch
-import torch.nn.functional as F
 from PIL import Image
 
 from .hub import download_model, load_config
-from .models import IDisc, IDiscERP
+from .models import IDisc
 from .utils import get_device, load_image, is_panorama
 
 
@@ -23,11 +22,19 @@ class DepthPredictor:
     Args:
         model: Model name ('outdoor-resnet101', 'outdoor-swinl', etc.)
         device: Device to use ('cuda', 'mps', 'cpu', or None for auto)
+        fix_panorama_seam: If True, apply Poisson blending to correct left-right
+            seam artifacts in ERP panorama depth outputs.
     """
     
-    def __init__(self, model: str = "outdoor-resnet101", device: Union[str, None] = None):
+    def __init__(
+        self,
+        model: str = "outdoor-resnet101",
+        device: Union[str, None] = None,
+        fix_panorama_seam: bool = True,
+    ):
         self.model_name = model
         self.device = get_device(device)
+        self.fix_panorama_seam = fix_panorama_seam
         
         # Download model files
         config_path, weights_path = download_model(model)
@@ -101,10 +108,6 @@ class DepthPredictor:
         # Normalize and convert to tensor
         img_tensor = self._to_tensor(image_resized)
         
-        # Create lat/long ranges for full 360° panorama
-        lat_range = torch.tensor([[-math.pi/2, math.pi/2]], device=self.device)
-        long_range = torch.tensor([[-math.pi, math.pi]], device=self.device)
-        
         # Run inference with ERP-aware forward pass
         with torch.no_grad():
             # Use the standard model for now (works well for panoramas)
@@ -113,6 +116,14 @@ class DepthPredictor:
         # Convert to numpy and resize to original dimensions
         depth_np = depth.squeeze().cpu().numpy()
         depth_original = cv2.resize(depth_np, (original_w, original_h), interpolation=cv2.INTER_LINEAR)
+
+        # Optional: Poisson blending seam correction for ERP panoramas
+        if self.fix_panorama_seam:
+            from .seam_blending import fix_panorama_seam
+
+            # Rule-of-thumb: W//32..W//16; use W//32 baseline.
+            blend_width = max(8, original_w // 32)
+            depth_original = fix_panorama_seam(depth_original, blend_width=blend_width)
         
         return depth_original
     
